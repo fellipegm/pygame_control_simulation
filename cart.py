@@ -211,7 +211,7 @@ while running:
     screen.blit(Kd_text, (150, 70))
 
     alt_sp_text = font.render("a: diminui SP,   d: aumenta SP", True, (255, 255, 255))
-    alt_pert_text = font.render("->: pert. direita,   <-: pert. esquerda", True, (255, 255, 255))
+    alt_pert_text = font.render("<-: pert. p/ esquerda,   ->: pert. p/ direita", True, (255, 255, 255))
     alt_p_text = font.render("p: aumenta Kp,   o: diminui Kp", True, (255, 255, 255))
     alt_i_text = font.render("l: aumenta Ki,   k: diminui Ki", True, (255, 255, 255))
     alt_d_text = font.render("m: aumenta Kd,   n: diminui Kd", True, (255, 255, 255))
