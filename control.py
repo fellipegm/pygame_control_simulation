@@ -24,6 +24,7 @@ class PIDController:
         self.D = 0.0
         self.last_error = 0.0
         self.error = 0.0
+        self.output = 0.0
 
     def update_parameters(self, Kp, Ki, Kd):
         self.Kp = Kp
@@ -46,8 +47,8 @@ class PIDController:
         self.P = self.Kp * self.error
         self.I += self.Kp*self.Ki*(self.error + self.last_error)/2 * self.dt
         self.D = self.Kp*self.Kd*(self.error - self.last_error) / self.dt
-        output = self.P + self.I + self.D
+        self.output = self.P + self.I + self.D
 
         self.last_error = self.error
 
-        return np.array([output])
+        return np.array([self.output])
