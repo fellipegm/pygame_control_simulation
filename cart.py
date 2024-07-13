@@ -3,6 +3,7 @@ import numpy as np
 from physics_model import ComputeCart
 from control import PIDController
 from draw_cart import DrawCart
+from plotter import Plotter
 
 # Initialize pygame
 pygame.init()
@@ -16,6 +17,10 @@ clock = pygame.time.Clock()
 # Screen dimensions
 WIDTH, HEIGHT = 800, 400
 WIDTH_METERS = 5
+
+# Plot dimensions
+PLOT_WIDTH, PLOT_HEIGHT = 0, 0
+PLOT1_POSITION = (WIDTH, 0)
 
 FPS = 50 # Target FPS
 
@@ -44,8 +49,13 @@ SP = WIDTH_METERS/2
 Controller = PIDController(0, 0, 0, SP, 1/FPS)
 
 # Set up the display
-screen = pygame.display.set_mode((WIDTH, HEIGHT))
+screen = pygame.display.set_mode((WIDTH+PLOT_WIDTH, HEIGHT))
 pygame.display.set_caption("Cart position control")
+
+# # Configure the plotters
+# count_plot = 0
+# n_to_update = 0.2/(1/FPS) # update plot each 0.2 seconds
+# Plot1 = Plotter(screen, 2, 2, PLOT1_POSITION)
 
 # Drawings initialization
 CartDrawings = DrawCart(screen, WIDTH_METERS, WIDTH, HEIGHT, cart_width, cart_height)
@@ -63,9 +73,9 @@ while running:
             elif event.key == pygame.K_RIGHT:
                 d = np.array([F])   # Apply right force
             elif event.key == pygame.K_d:
-                ref = ref + 0.5
+                SP = SP + 0.5
             elif event.key == pygame.K_a:
-                ref = ref - 0.5
+                SP = SP - 0.5
         elif event.type == pygame.KEYUP:
             if event.key in [pygame.K_LEFT, pygame.K_RIGHT]:
                 d = np.array([0])  # Remove force
@@ -103,8 +113,13 @@ while running:
     # Compute the control action
     u = Controller.update_output(SP, Cart.x)
 
-    # Clear screen
     screen.fill(BLACK)
+
+    # if count_plot <= n_to_update:
+    #     count_plot = count_plot + 1
+    # else:
+    #     Plot1.plot_data(np.array([0, 1]), np.array([1, 1]))
+    #     count_plot = 0
 
     CartDrawings.draw(SP, Cart, Controller, d)
     CartDrawings.print_info(Cart, Controller, d, dt)

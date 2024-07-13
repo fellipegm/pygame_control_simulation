@@ -102,7 +102,7 @@ class DrawCart:
         self.screen.blit(Kd_text, (150, 70))
 
         alt_sp_text = self.font.render("a: decrease SP,   d: increase SP", True, (255, 255, 255))
-        alt_pert_text = self.font.render("<-: pert. p/ esquerda,   ->: pert. p/ direita", True, (255, 255, 255))
+        alt_pert_text = self.font.render("<-: dist. to left,   ->: dist. to right", True, (255, 255, 255))
         alt_p_text = self.font.render("p: increase Kp,   o: decrease Kp", True, (255, 255, 255))
         alt_i_text = self.font.render("l: increase Ki,   k: decrease Ki", True, (255, 255, 255))
         alt_d_text = self.font.render("m: increase Kd,   n: decrease Kd", True, (255, 255, 255))
